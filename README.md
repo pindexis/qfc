@@ -1,7 +1,7 @@
 # qfc
 Quick Command-line File Completion
 
-qfc is an alternative of shell complete which features real-time multi-directories matching: It matches against all tracked files in a cvs tracked directory, or up to a sepcific depth if the directory is not tracked.
+qfc is a shell auto-complete alternative which features real-time multi-directories matching: It matches files while you type against multiple directories, not just the current one.
 This is useful, to avoid the burden of writing the whole path whenever you want to `cd` or `vim` a file, which is frequent espacielly if you use the terminal as your IDE(The terminal is the best IDE, remember!).
 
 ## Features:
@@ -10,7 +10,13 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
 - Enhanced Filtering/Sorting of matches.
 
 ## Usage:
-- Ctrl-f : complete current word using qfc
+- Ctrl-f : complete the word under cursor using qfc
+- while qfc is open:
+    - TAB: Append the selected match to the current path
+    - ENTER: Append the selected match to the current path and returns the result
+    - Ctrl-f: Returns the current path.
+    - Arrows keys: Navigation between directories
+
 
 ## Installation:
 - `git clone https://github.com/pindexis/qfc $HOME/.qfc`
