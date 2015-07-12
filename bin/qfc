@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+from __future__ import print_function
+import sys
+import argparse
+import os
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..'))
+from qfc import core
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Qfc: Quick command-line file competion")
+
+    parser.add_argument("--search", type=str, help="Search string")  
+    parser.add_argument("--stdout", type=str, help="Where to store result(defaut to stdout)")
+    parser.set_defaults(func=cmd_get)
+
+    args = parser.parse_args()
+    return args.func(args)
+
+def cmd_get(args):
+    output = core.get_selected_command_or_input(args.search)
+    if not output:
+        output = ""
+    if args.stdout:
+        with open(args.stdout,'w+') as save_file:
+            # the newline character is to make sure 'wc -l' executes correctly
+            if output:
+                output+="\n"
+            save_file.write(output)
+    else:
+        print(output)
+
+
+if __name__ == "__main__":
+    parse_arguments()
