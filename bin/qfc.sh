@@ -29,7 +29,6 @@ if [[ -n "$ZSH_VERSION" ]]; then
         row=$(echo $(get_cursor_position) | cut -f 2 -d " ")
         col=$(echo $(get_cursor_position) | cut -f 1 -d " ")
         </dev/tty echo ''
-#        tput cup $(expr $col + 1) $row
         word=${BUFFER[0,offset]}
         word=${word##* }
 
