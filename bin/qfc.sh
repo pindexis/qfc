@@ -57,6 +57,23 @@ if [[ -n "$ZSH_VERSION" ]]; then
     zle -N qfc_complete 
     bindkey "$complete_shortcut" qfc_complete 
 
+    function qfc_quick_command(){
+      if [[ ! -z $1 ]] && [[ ! -z $2 ]] && [[ ! -z $3 ]]; then
+        func_name='quick_'$1
+        eval $"function $func_name(){
+          zle kill-whole-line 
+          qfc_complete
+          if [[ ! -z \${BUFFER} ]]; then
+            c='$3'
+            BUFFER=\${c//'\$0'/\$BUFFER}
+            zle accept-line
+          fi
+        }"
+        zle -N $func_name 
+        bindkey "$2" $func_name 
+      fi
+    }
+
 elif [[ -n "$BASH" ]]; then
 
     DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -87,4 +104,21 @@ elif [[ -n "$BASH" ]]; then
     }
 
     bind -x '"'"$complete_shortcut"'":"qfc_complete"'
+
+    function qfc_quick_command {
+      if [[ ! -z $1 ]] && [[ ! -z $2 ]] && [[ ! -z $3 ]]; then
+        func_name='quick_'$1
+        eval $"function $func_name(){
+          READLINE_LINE=''
+          qfc_complete
+          if [[ ! -z \${READLINE_LINE} ]]; then
+            c='$3'
+            READLINE_LINE=\${c//'\$0'/\$READLINE_LINE}
+          fi
+        }"
+        bind -x '"\e-'"$1"'":"'"${func_name}"'"'
+        bind '"'"$2"'":""\e-'"$1"'\n"'
+      fi
+    }
+
 fi
