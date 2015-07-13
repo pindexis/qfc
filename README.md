@@ -1,6 +1,8 @@
 # qfc
 Quick Command-line File Completion
 
+![out](https://cloud.githubusercontent.com/assets/2557967/8640856/e8e73dca-28fe-11e5-9e8f-31d8148964dd.gif)
+
 qfc is a shell auto-complete alternative which features real-time multi-directories matching: It matches files while you type against multiple directories, not just the current one.
 This is useful, to avoid the burden of writing the whole path whenever you want to `cd` or `vim` a file, which is frequent espacielly if you use the terminal as your IDE(The terminal is the best IDE, remember!).
 
