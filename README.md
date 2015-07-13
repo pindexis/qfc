@@ -8,7 +8,7 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
 
 ## Features:
 - Real-time matching: Results are displayed while you type.
-- Multi-directories && Context relevant matching: if you're in a cvs(git,mercurial) managed directory, qfc will matches against your tracked(or new) files only. This is very useful to avoid 10000+ of dependency files cluttering up the results. for unmanaged dirs, qfc look for unhidden files up to a maximum depth(set to 3).
+- Multi-directories && Context relevant matching: if you're in a cvs(git,mercurial) managed directory, qfc will matches against your tracked(or new) files only. This is very useful to avoid 10000+ of dependency files cluttering up the results. for unmanaged dirs, qfc looks for unhidden files up to a maximum depth(set to 3).
 - Enhanced Filtering/Sorting of matches.
 
 ## Usage:
