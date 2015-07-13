@@ -11,6 +11,7 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
 - Real-time matching: Results are displayed while you type.
 - Multi-directories && Context relevant matching: if you're in a cvs(git,mercurial) managed directory, qfc will matches against your tracked(or new) files only. This is very useful to avoid 10000+ of dependency files cluttering up the results. for unmanaged dirs, qfc looks for unhidden files up to a maximum depth(set to 3).
 - Enhanced Filtering/Sorting of matches.
+- No dependencies.
 
 
 ## Requirements
@@ -46,4 +47,4 @@ This allows me to switch directories by just pressing Ctrl-b(or editing a file b
 
 `qfc_quick_command` expects an `id`, `a shortcut`, and a command with `$0` placeholder(which will be replaced with the completion path).  
 It's recommended to choose a 2-5 length letters only `id`(else you may encounter issues).  
-Also, be careful with keyboard shortcuts to choose(mapping some keys can prevent the terminal from working correctly).
+Also, be careful with what keyboard shortcuts to choose(mapping some keys can prevent the terminal from working correctly).
