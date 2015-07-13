@@ -24,26 +24,33 @@ if [[ -n "$ZSH_VERSION" ]]; then
 
     # zshell
     function qfc_complete {
+        # get the cursor offset within the user input
         offset=${CURSOR}
         zle beginning-of-line
-        row=$(echo $(get_cursor_position) | cut -f 2 -d " ")
-        col=$(echo $(get_cursor_position) | cut -f 1 -d " ")
+        # get the offset from the start of comandline prompt
+        col=$(echo $(get_cursor_position) | cut -f 2 -d " ")
+        # place the cursor at the next line
         </dev/tty echo ''
+
+        # get the word under cursor
         word=${BUFFER[0,offset]}
         word=${word##* }
 
+        # instruct qfc to store the result (completion path) into a temporary file
         tmp_file=$(mktemp -t qfc.XXXXXXX)
         </dev/tty qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
-
+        
+        # append the completion path to the user buffer
         word_length=${#word}
         result_length=${#result}
         BUFFER=${BUFFER[1,$((offset-word_length))]}${result}${BUFFER[$((offset+word_length)),-1]}
         let "offset = offset - word_length + result_length"
-        #position might have been changed
-        col=$(echo $(get_cursor_position) | cut -f 1 -d " ")
-        tput cup $(expr $col - 1) $row
+
+        # reset the absolute and relative cursor position, note that it's necessary to get row position after qfc is run, because it may be changed during qfc execution
+        row=$(echo $(get_cursor_position) | cut -f 1 -d " ")
+        tput cup $(expr $row - 1) $col
         CURSOR=${offset}
     }
 
@@ -56,9 +63,11 @@ elif [[ -n "$BASH" ]]; then
     PATH=$DIR:$PATH
 
     function qfc_complete {
+        # pretty similar to zsh flow
         offset=${READLINE_POINT}
         READLINE_POINT=0
-        row=$(echo $(get_cursor_position) | cut -f 2 -d " ")
+        col=$(echo $(get_cursor_position) | cut -f 2 -d " ")
+
         word=${READLINE_LINE:0:offset}
         word=${word##* }
 
@@ -71,9 +80,9 @@ elif [[ -n "$BASH" ]]; then
         result_length=${#result}
         READLINE_LINE=${READLINE_LINE:0:$((offset-word_length))}${result}${READLINE_LINE:$((offset))}
         offset=$(expr $offset - $word_length + $result_length)
-        #position might have been changed
-        col=$(echo $(get_cursor_position) | cut -f 1 -d " ")
-        tput cup $col $row
+
+        row=$(echo $(get_cursor_position) | cut -f 1 -d " ")
+        tput cup $row $col
         READLINE_POINT=${offset}
     }
 
