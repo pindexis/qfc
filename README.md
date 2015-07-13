@@ -14,11 +14,16 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
 ## Usage:
 - `Ctrl-f` : complete the word under cursor using qfc
 - while qfc is open:
-    - `TAB`: Append the selected match to the current path
-    - `ENTER`: Append the selected match to the current path and returns the result
+    - `TAB`: Append the selected match to the current path.
+    - `ENTER`: Append the selected match to the current path and returns the result.
     - `Ctrl-f`: Returns the current path.
-    - `Arrow keys`: Navigation between directories
+    - `Arrow keys` and `Ctrl-hjkl`: Navigation between files.
 
+## Requirements
+- python (2.7+ or 3.0+)
+- Bash-4.0+ or Zshell.
+- Linux Or OSX  
+In OSX, it seems like Bash 3.x is the default shell which is not supported. you have to [update your Bash to 4.0+](http://apple.stackexchange.com/a/24635) or [change your shell to zshell](http://stackoverflow.com/a/1822126/1117720).
 
 ## Installation:
 - `git clone https://github.com/pindexis/qfc $HOME/.qfc`
