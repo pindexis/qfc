@@ -23,7 +23,7 @@ In OSX, it seems like Bash 3.x is the default shell which is not supported. you 
 
 ## Installation:
 - `git clone https://github.com/pindexis/qfc $HOME/.qfc`
-- Add the following line to your *.rc :  
+- Add the following line to your *rc (.zshrc, .bashrc, .bash_profile in OSX):  
     `[[ -s "$HOME/.qfc/bin/qfc.sh" ]] && source "$HOME/.qfc/bin/qfc.sh"`
 
 
