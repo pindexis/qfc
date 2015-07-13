@@ -1,5 +1,5 @@
 # default key bindings
-complete_shortcut="${QFC_COMPLETE_SHORTCUT:-\C-f}"
+complete_shortcut="${qfc_complete_SHORTCUT:-\C-f}"
 
 function get_cursor_position(){
   # based on a script from http://invisible-island.net/xterm/xterm.faq.html
@@ -23,7 +23,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
     PATH=$DIR:$PATH
 
     # zshell
-    function c_complete {
+    function qfc_complete {
         offset=${CURSOR}
         zle beginning-of-line
         row=$(echo $(get_cursor_position) | cut -f 2 -d " ")
@@ -48,15 +48,15 @@ if [[ -n "$ZSH_VERSION" ]]; then
         CURSOR=${offset}
     }
 
-    zle -N c_complete 
-    bindkey "$complete_shortcut" c_complete 
+    zle -N qfc_complete 
+    bindkey "$complete_shortcut" qfc_complete 
 
 elif [[ -n "$BASH" ]]; then
 
     DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
     PATH=$DIR:$PATH
 
-    function c_complete {
+    function qfc_complete {
         offset=${READLINE_POINT}
         READLINE_POINT=0
         row=$(echo $(get_cursor_position) | cut -f 2 -d " ")
@@ -78,5 +78,5 @@ elif [[ -n "$BASH" ]]; then
         READLINE_POINT=${offset}
     }
 
-    bind -x '"'"$complete_shortcut"'":"c_complete"'
+    bind -x '"'"$complete_shortcut"'":"qfc_complete"'
 fi
