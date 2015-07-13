@@ -17,7 +17,7 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
     - `TAB`: Append the selected match to the current path.
     - `ENTER`: Append the selected match to the current path and returns the result.
     - `Ctrl-f`: Returns the current path.
-    - `Arrow keys` and `Ctrl-hjkl`: Navigation between files.
+    - `Arrow keys`: Navigation between files.
 
 ## Requirements
 - python (2.7+ or 3.0+)
