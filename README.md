@@ -34,3 +34,16 @@ In OSX, it seems like Bash 3.x is the default shell which is not supported. you 
     - `Ctrl-f`: Returns the current path.
     - `Arrow keys`: Navigation between files.
 
+
+## Even more Productivity:
+If you're using zshell or Bash 4.3+, You can combine qfc with commands you frequently use to get one key-stroke experience. For example, I have the following lines in my .zshrc:
+```
+qfc_quick_command 'cd' '\C-b' 'cd $0'
+qfc_quick_command 'vim' '\C-i' 'vim $0'
+```
+This allows me to switch directories by just pressing Ctrl-b(or editing a file by pressing Ctrl-i).
+![qfc](https://cloud.githubusercontent.com/assets/2557967/8654777/78534320-2984-11e5-8684-f18709af0748.gif)
+
+`qfc_quick_command` expects an `id`, `a shortcut`, and a command with `$0` placeholder(which will be replaced with the completion path).  
+It's recommended to choose a 2-5 length letters only `id`(else you may encounter issues).  
+Also, be careful with keyboard shortcuts to choose(mapping some keys can prevent the terminal from working correctly).
