@@ -12,12 +12,12 @@ This is useful, to avoid the burden of writing the whole path whenever you want 
 - Enhanced Filtering/Sorting of matches.
 
 ## Usage:
-- Ctrl-f : complete the word under cursor using qfc
+- `Ctrl-f` : complete the word under cursor using qfc
 - while qfc is open:
-    - TAB: Append the selected match to the current path
-    - ENTER: Append the selected match to the current path and returns the result
-    - Ctrl-f: Returns the current path.
-    - Arrows keys: Navigation between directories
+    - `TAB`: Append the selected match to the current path
+    - `ENTER`: Append the selected match to the current path and returns the result
+    - `Ctrl-f`: Returns the current path.
+    - `Arrow keys`: Navigation between directories
 
 
 ## Installation:
