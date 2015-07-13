@@ -40,9 +40,9 @@ In OSX, it seems like Bash 3.x is the default shell which is not supported. you 
 If you're using zshell or Bash 4.3+, You can combine qfc with commands you frequently use to get one key-stroke experience. For example, I have the following lines in my .zshrc:
 ```
 qfc_quick_command 'cd' '\C-b' 'cd $0'
-qfc_quick_command 'vim' '\C-i' 'vim $0'
+qfc_quick_command 'vim' '\C-p' 'vim $0'
 ```
-This allows me to switch directories by just pressing Ctrl-b(or editing a file by pressing Ctrl-i).
+This allows me to switch directories by just pressing Ctrl-b(or editing a file by pressing Ctrl-p).
 ![qfc](https://cloud.githubusercontent.com/assets/2557967/8654777/78534320-2984-11e5-8684-f18709af0748.gif)
 
 `qfc_quick_command` expects an `id`, `a shortcut`, and a command with `$0` placeholder(which will be replaced with the completion path).  
