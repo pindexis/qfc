@@ -8,13 +8,17 @@ FOREGROUND_BLACK = "\x1b[30m"
 BACKGROUND_WHITE = "\x1b[47m"
 
 def _CURSOR_COLUMN(pos):
-    return "\x1b["+str(pos)+"G"
+    # ideally, CSI n G escape code is used to set the absolute horizental position
+    # Sadly, it's not an Ansi.sys escape code (not supported in all terminals)
+    # This shim try to simulate it by moving cursor backwards 1000 characters(terminal row width is assumed to be less than that number, which may not be the case for aliens laptops :))
+    # Then, move cursor pos - 1 characthers forward (the - 1 is because the cursor is at position 1) 
+    return "\x1b[1000D\x1b["+str(pos - 1)+"C"
 
 def _CURSOR_PREVIOUS_LINES(number):
-    return "\x1b["+str(number)+"F"
+    return "\x1b["+str(number)+"A"
 
 def _CURSOR_NEXT_LINES(number):
-    return "\x1b["+str(number)+"E"
+    return "\x1b["+str(number)+"B"
 
 def select_text(text):
     return  (FOREGROUND_BLACK +
