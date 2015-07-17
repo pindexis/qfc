@@ -12,7 +12,10 @@ def _CURSOR_COLUMN(pos):
     # Sadly, it's not an Ansi.sys escape code (not supported in all terminals)
     # This shim try to simulate it by moving cursor backwards 1000 characters(terminal row width is assumed to be less than that number, which may not be the case for aliens laptops :))
     # Then, move cursor pos - 1 characthers forward (the - 1 is because the cursor is at position 1) 
-    return "\x1b[1000D\x1b["+str(pos - 1)+"C"
+    c = "\x1b[1000D"
+    if pos:
+        c += "\x1b["+str(pos - 1)+"C"
+    return c
 
 def _CURSOR_PREVIOUS_LINES(number):
     return "\x1b["+str(number)+"A"
