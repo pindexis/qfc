@@ -27,7 +27,7 @@ class CVSHandler():
             try:
                 # check if it's a tracked cvs dir, if yes, get the project root and the source files
                 root_dir = self.cvs._get_root(directory)
-                self._files_cache[root_dir] = self.cvs._get_tracked_files(directory)
+                self._files_cache[root_dir] = self.cvs._get_tracked_files(root_dir)
             except Exception as e:
                 # not a cvs tracked dir, save it to not issue that command again
                 self._files_cache[directory] = []
