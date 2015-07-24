@@ -17,11 +17,11 @@ function get_cursor_position(){
   echo "$row $col"
 }
 
+if [[ -d ~/.qfc/ ]]; then
+    export PATH=~/.qfc/bin:"${PATH}"
+fi
+
 if [[ -n "$ZSH_VERSION" ]]; then
-
-    DIR=$( cd "$( dirname "$0" )" && pwd )
-    PATH=$DIR:$PATH
-
     # zshell
     function qfc_complete {
         # get the cursor offset within the user input
@@ -75,9 +75,6 @@ if [[ -n "$ZSH_VERSION" ]]; then
     }
 
 elif [[ -n "$BASH" ]]; then
-
-    DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-    PATH=$DIR:$PATH
 
     function qfc_complete {
         # pretty similar to zsh flow
