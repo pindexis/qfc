@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Qfc by pindexis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Qfc</h1>
+      <h2 class="project-tagline">Quick Command-line File Completion</h2>
+      <a href="https://github.com/pindexis/qfc" class="btn">View on GitHub</a>
+      <a href="https://github.com/pindexis/qfc/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/pindexis/qfc/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="qfc" class="anchor" href="#qfc" aria-hidden="true"><span class="octicon octicon-link"></span></a>qfc</h1>
+
+<p>Quick Command-line File Completion</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/2557967/8640880/582cb8fe-28ff-11e5-9753-41464dda938e.gif" alt="qfc"></p>
+
+<p>qfc is a shell auto-complete alternative which features real-time multi-directories matching: It provides results  while you type against files in the current directory and its sub-directories.
+This is useful, to avoid the burden of writing the whole path whenever you want to <code>cd</code> or <code>vim</code> a file, which is frequent especially if you use the terminal as your IDE(The terminal is the best IDE, remember! :-) ).</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features:</h2>
+
+<ul>
+<li>Real-time matching: Results are displayed while you type.</li>
+<li>Multi-directories &amp;&amp; Context relevant matching: if you're in a cvs(git,mercurial) managed directory, qfc will matches against your tracked(or new) files only. This is very useful to avoid 10000+ of dependency files cluttering up the results. for unmanaged dirs, qfc looks for unhidden files up to a maximum depth(set to 3).</li>
+<li>Enhanced Filtering/Sorting of matches.</li>
+<li>No dependencies.</li>
+</ul>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>python (2.7+ or 3.0+)</li>
+<li>Bash-4.0+ or Zshell.</li>
+<li>Linux Or OSX<br>
+In OSX, it seems like Bash 3.x is the default shell which is not supported. you have to <a href="http://apple.stackexchange.com/a/24635">update your Bash to 4.0+</a> or <a href="http://stackoverflow.com/a/1822126/1117720">change your shell to zshell</a>.</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation:</h2>
+
+<ul>
+<li><code>git clone https://github.com/pindexis/qfc $HOME/.qfc</code></li>
+<li>Add the following line to your *rc (.zshrc, .bashrc, .bash_profile in OSX):<br>
+<code>[[ -s "$HOME/.qfc/bin/qfc.sh" ]] &amp;&amp; source "$HOME/.qfc/bin/qfc.sh"</code>
+</li>
+</ul>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage:</h2>
+
+<ul>
+<li>
+<code>Ctrl-f</code> : complete the word under cursor using qfc</li>
+<li>while qfc is open:
+
+<ul>
+<li>
+<code>TAB</code>: Append the selected match to the current path.</li>
+<li>
+<code>ENTER</code>: Append the selected match to the current path and returns the result.</li>
+<li>
+<code>Ctrl-f</code>: Returns the current path.</li>
+<li>
+<code>Arrow keys</code>: Navigation between files.</li>
+</ul>
+</li>
+</ul>
+
+<h2>
+<a id="even-more-productivity" class="anchor" href="#even-more-productivity" aria-hidden="true"><span class="octicon octicon-link"></span></a>Even more Productivity:</h2>
+
+<p>If you're using zshell or Bash 4.3+, You can combine qfc with commands you frequently use to get one key-stroke experience. For example, I have the following lines in my .zshrc:</p>
+
+<pre><code>qfc_quick_command 'cd' '\C-b' 'cd $0'
+qfc_quick_command 'vim' '\C-p' 'vim $0'
+</code></pre>
+
+<p>This allows me to switch directories by just pressing Ctrl-b(or editing a file by pressing Ctrl-p).
+<img src="https://cloud.githubusercontent.com/assets/2557967/8654777/78534320-2984-11e5-8684-f18709af0748.gif" alt="qfc"></p>
+
+<p><code>qfc_quick_command</code> expects an <code>id</code>, <code>a shortcut</code>, and a command with <code>$0</code> placeholder(which will be replaced with the completion path).<br>
+It's recommended to choose a 2-5 length letters only <code>id</code>(else you may encounter issues).<br>
+Also, be careful with what keyboard shortcuts to choose(mapping some keys can prevent the terminal from working correctly).</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/pindexis/qfc">Qfc</a> is maintained by <a href="https://github.com/pindexis">pindexis</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
