@@ -56,7 +56,7 @@ class Mercurial():
         return run_command("cd %s && hg root" % directory).strip()
     @staticmethod
     def _get_tracked_files(directory):
-        return run_command("cd %s && hg locate" % directory).strip().split('\n')
+        return run_command("cd %s && (hg status -marcu | cut -d' ' -f2)" % directory).strip().split('\n')
 
 class DefaultDirHandler():
     """ The default directory handler uses the 'find' external program to return all the files inside a given directory up to MAX_depth depth (ie, if maxdepth=2, returns all files inside that dir, and all files in a subdir of that directory)"""
