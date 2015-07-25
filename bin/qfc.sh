@@ -50,7 +50,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
 
         # reset the absolute and relative cursor position, note that it's necessary to get row position after qfc is run, because it may be changed during qfc execution
         row=$(echo $(get_cursor_position) | cut -f 1 -d " ")
-        tput cup $(expr $row - 1) $col
+        tput cup $(($row - 1)) $col
         CURSOR=${offset}
     }
 
@@ -93,7 +93,7 @@ elif [[ -n "$BASH" ]]; then
         word_length=${#word}
         result_length=${#result}
         READLINE_LINE=${READLINE_LINE:0:$((offset-word_length))}${result}${READLINE_LINE:$((offset))}
-        offset=$(expr $offset - $word_length + $result_length)
+        offset=$(($offset - $word_length + $result_length))
 
         row=$(echo $(get_cursor_position) | cut -f 1 -d " ")
         tput cup $row $col
