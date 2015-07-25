@@ -1,3 +1,15 @@
+# get the absolute path to the DIR this script is in
+QFC_DIR_PATH=$(dirname $0)
+
+# check if the script got executed from its own dir and correct the dirpath if so
+if [ $QFC_DIR_PATH = '.' ]
+then
+    QFC_DIR_PATH=$(pwd)
+fi
+
+# add QFC_DIR_PATH to the PATH variable
+export PATH="${QFC_DIR_PATH}:${PATH}"
+
 # default key bindings
 complete_shortcut="${qfc_complete_SHORTCUT:-\C-f}"
 
@@ -16,10 +28,6 @@ function get_cursor_position(){
   col=$((${col} - 1))
   echo "$row $col"
 }
-
-if [[ -d ~/.qfc/ ]]; then
-    export PATH=~/.qfc/bin:"${PATH}"
-fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
     # zshell
