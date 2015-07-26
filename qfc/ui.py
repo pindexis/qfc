@@ -42,7 +42,7 @@ def _construct_output(state):
         selected_command_index = matches.index(state.get_selected_match())
         matches_to_display = matches[max(0, selected_command_index - 10 + 1):max(10, selected_command_index + 1)]
         for index, m in enumerate(matches_to_display):
-            fm = ' '+str(m)
+            fm = ' ' + m
             num_rows += number_of_rows(fm)
             # Formatting text(make searched word bold)
             for w in state.input.split(' '):

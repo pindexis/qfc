@@ -8,36 +8,39 @@ class CVSHandler():
         filtering from all project files of is done here.
     """
     def __init__(self, cvs):
-        self._files_cache = {}
+        self._roots_cache = {}
+        self._not_tracked_cache = set()
         self.cvs = cvs
 
-    def _get_cached_dir(self, directory):
+    def _get_root_from_cache(self, directory):
         """ a directory is considered cached if it's the project root or a subdirectory of that project root.
             returns the project root dir, or None if the directory is not cached.
         """
-        if directory in self._files_cache:
+        if directory in self._roots_cache:
             return directory
         if os.path.dirname(directory) == directory:
             return None
-        return self._get_cached_dir(os.path.dirname(directory))
+        return self._get_root_from_cache(os.path.dirname(directory))
 
     def get_source_files(self, directory):
-        cached_dir = self._get_cached_dir(directory)
-        if not cached_dir:
+        if directory in self._not_tracked_cache:
+            return None
+
+        root_dir = self._get_root_from_cache(directory)
+        if not root_dir:
             try:
                 # check if it's a tracked cvs dir, if yes, get the project root and the source files
                 root_dir = self.cvs._get_root(directory)
-                self._files_cache[root_dir] = self.cvs._get_tracked_files(root_dir)
+                self._roots_cache[root_dir] = self.cvs._get_tracked_files(root_dir)
             except Exception as e:
                 # not a cvs tracked dir, save it to not issue that command again
-                self._files_cache[directory] = []
-            # the cached dir is the project root directory if it's a tracked directory
-            cached_dir = self._get_cached_dir(directory)
+                self._not_tracked_cache.add(directory)
+                return None
 
-        files = self._files_cache[cached_dir]
+        files = self._roots_cache[root_dir]
         # the passed directory argument is a subdirectory of the project root
-        if directory != cached_dir:
-            rel_dir = os.path.relpath(directory, cached_dir)
+        if directory != root_dir:
+            rel_dir = os.path.relpath(directory, root_dir)
             files = [f[len(rel_dir)+1:] for f in files if f.startswith(rel_dir)]
         return files
  
