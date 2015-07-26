@@ -1,4 +1,3 @@
-from __future__ import print_function
 import os
 import re
 from . import keys
@@ -112,7 +111,7 @@ class State(object):
         if len(self.matches):
             return self.matches[self._selected_command_index]
         else:
-            raise 'No matches found'
+            raise Exception('No matches found')
 
     def set_selected_entry(self, entry):
         if not (entry in self.matches):
@@ -202,7 +201,7 @@ index of the string in the path element + 10                                 (in
         return weight
 
     elm = next(e for e in path_elems if string in e)
-    elm_words = filter(None, re.split('[\W_]+', elm))
+    elm_words = [_f for _f in re.split('[\W_]+', elm) if _f]
     if string in elm_words:
         if len(elm_words) > 1:
             weight += 10 * (min(elm_words.index(string),8) + 1) # Max 8 words per path entry
