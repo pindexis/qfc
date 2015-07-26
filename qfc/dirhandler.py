@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys 
 
 class CVSHandler():
     """ Handler of CVS (fir, mercurial...) directories, 
@@ -74,7 +75,9 @@ class DefaultDirHandler():
         except subprocess.CalledProcessError as e:
             # Find returns a non 0 exit status if listing a directory fails (for example, permission denied), but still output all files in other dirs
             # ignore those failed directories.
-            out = e.output.decode('utf-8')
+            out = e.output
+            if sys.version_info >= (3, 0):
+                out = out.decode('utf-8')
         if not out:
             return []
         files = out.split('\n')
@@ -88,7 +91,10 @@ class DefaultDirHandler():
 def run_command(string):
     ''' fork a process to execute the command string given as argument, returning the string written to STDOUT '''
     DEVNULL = open(os.devnull, 'wb')
-    return subprocess.check_output(string, stderr=DEVNULL, shell=True).decode('utf-8')
+    out = subprocess.check_output(string, stderr=DEVNULL, shell=True)
+    if sys.version_info >= (3, 0):
+        return out.decode('utf-8')
+    return out
 
 
 git = CVSHandler(Git)
