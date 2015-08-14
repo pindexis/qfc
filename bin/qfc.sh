@@ -24,6 +24,11 @@ fi
 if [[ -n "$ZSH_VERSION" ]]; then
     # zshell
     function qfc_complete {
+        # Add a letter and remove it from the buffer.
+        # when using zsh autocomplete(pressing Tab), then running qfc, the BUFFER(qfc input) won't contain the trailing forward slash(which should happen when using zsh autocomplete for directories).
+        # pressing a character then removing it makes sure that BUFFER contains what you see on the screen.
+        BUFFER=${BUFFER}'a'
+        BUFFER=${BUFFER[0,-2]}
         # get the cursor offset within the user input
         offset=${CURSOR}
         zle beginning-of-line
