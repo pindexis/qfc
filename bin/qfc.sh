@@ -19,6 +19,9 @@ function get_cursor_position(){
 
 if [[ -d ~/.qfc/ ]]; then
     export PATH=~/.qfc/bin:"${PATH}"
+else
+  DIRNAME=$(dirname $0)
+    export PATH=$DIRNAME:"${PATH}"
 fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
