@@ -1,25 +1,17 @@
+#!/bin/bash
 # default key bindings
 complete_shortcut="${qfc_complete_SHORTCUT:-\C-f}"
 
 function get_cursor_position(){
-  # based on a script from http://invisible-island.net/xterm/xterm.faq.html
-  exec < /dev/tty
-  oldstty=$(stty -g)
-  stty raw -echo min 0
-  # on my system, the following line can be replaced by the line below it
-  echo -en "\033[6n" > /dev/tty
-  # tput u7 > /dev/tty    # when TERM=xterm (and relatives)
-  IFS=';' read -r -d R  row col 
-  stty $oldstty
-  # change from one-based to zero based so they work with: tput cup $row $col
-  row=$((${row:2} - 1))    # strip off the esc-[
-  col=$((${col} - 1))
-  echo "$row $col"
+  # WAS: based on a script from http://invisible-island.net/xterm/xterm.faq.html
+  # NOW: the more elegant: https://unix.stackexchange.com/questions/88296/get-vertical-cursor-position/183121#183121
+  local CURPOS
+  read -sdR -p $'\E[6n' CURPOS
+  CURPOS=${CURPOS#*[} # Strip decoration characters <ESC>[
+  local row=${CURPOS%;*}
+  local col=${CURPOS#*;}
+  echo $((row - 1)) $((col - 1))
 }
-
-if [[ -d ~/.qfc/ ]]; then
-    export PATH=~/.qfc/bin:"${PATH}"
-fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
     # zshell
@@ -43,7 +35,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
 
         # instruct qfc to store the result (completion path) into a temporary file
         tmp_file=$(mktemp -t qfc.XXXXXXX)
-        </dev/tty qfc --search="$word" --stdout="$tmp_file"
+        </dev/tty $HOME/.qfc/bin/qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
         
@@ -91,7 +83,7 @@ elif [[ -n "$BASH" ]]; then
         word=${word##* }
 
         tmp_file=$(mktemp -t qfc.XXXXXXX)
-        </dev/tty qfc --search="$word" --stdout="$tmp_file"
+        </dev/tty $HOME/.qfc/bin/qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
 
