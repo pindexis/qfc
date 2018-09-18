@@ -17,8 +17,14 @@ function get_cursor_position(){
   echo "$row $col"
 }
 
-if [[ -d ~/.qfc/ ]]; then
-    export PATH=~/.qfc/bin:"${PATH}"
+# Determine the absolute path to the QFC script.
+if [[ -n "$BASH_VERSION" ]]; then
+  # Bash doesn’t evaluate $0 the right way when the script is sourced;
+  # use $BASH_SOURCE instead.
+  QFC=$(realpath $(dirname ${BASH_SOURCE[0]}))/qfc
+else
+  # In zsh, $0 is consistent between sourcing and script invocation.
+  QFC=$(realpath $(dirname $0))/qfc
 fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
@@ -43,7 +49,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
 
         # instruct qfc to store the result (completion path) into a temporary file
         tmp_file=$(mktemp -t qfc.XXXXXXX)
-        </dev/tty qfc --search="$word" --stdout="$tmp_file"
+        </dev/tty "$QFC" --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
 
@@ -91,7 +97,7 @@ elif [[ -n "$BASH" ]]; then
         word=${word##* }
 
         tmp_file=$(mktemp -t qfc.XXXXXXX)
-        </dev/tty qfc --search="$word" --stdout="$tmp_file"
+        </dev/tty "$QFC" --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
 
