@@ -45,7 +45,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
         tmp_file=$(mktemp -t qfc.XXXXXXX)
         </dev/tty qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
-        rm -f $tmp_file
+        \rm -f $tmp_file
 
         # append the completion path to the user buffer
         word_length=${#word}
@@ -93,7 +93,7 @@ elif [[ -n "$BASH" ]]; then
         tmp_file=$(mktemp -t qfc.XXXXXXX)
         </dev/tty qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
-        rm -f $tmp_file
+        \rm -f $tmp_file
 
         word_length=${#word}
         result_length=${#result}
