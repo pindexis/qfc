@@ -17,8 +17,14 @@ function get_cursor_position(){
   echo "$row $col"
 }
 
-if [[ -d ~/.qfc/ ]]; then
-    export PATH=~/.qfc/bin:"${PATH}"
+if [[ -n  "${BASH_SOURCE[0]}" ]]; then
+    QFC_DIR="$(dirname "${BASH_SOURCE[0]}")"
+elif [[ -n $ZSH_VERSION ]]; then
+    echo QFC Dir is ${(%):-%N}
+    QFC_DIR="$(dirname "${(%):-%N}")"
+fi
+if [[ -x "$QFC_DIR/qfc" ]]; then
+    export PATH="$QFC_DIR":"${PATH}"
 fi
 
 if [[ -n "$ZSH_VERSION" ]]; then
