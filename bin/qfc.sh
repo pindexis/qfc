@@ -38,7 +38,7 @@ if [[ -n "$ZSH_VERSION" ]]; then
         </dev/tty $HOME/.qfc/bin/qfc --search="$word" --stdout="$tmp_file"
         result=$(<$tmp_file)
         rm -f $tmp_file
-        
+
         # append the completion path to the user buffer
         word_length=${#word}
         result_length=${#result}
@@ -51,14 +51,14 @@ if [[ -n "$ZSH_VERSION" ]]; then
         CURSOR=${offset}
     }
 
-    zle -N qfc_complete 
-    bindkey "$complete_shortcut" qfc_complete 
+    zle -N qfc_complete
+    bindkey "$complete_shortcut" qfc_complete
 
     function qfc_quick_command(){
       if [[ ! -z $1 ]] && [[ ! -z $2 ]] && [[ ! -z $3 ]]; then
         func_name='quick_'$1
         eval $"function $func_name(){
-          zle kill-whole-line 
+          zle kill-whole-line
           qfc_complete
           if [[ ! -z \${BUFFER} ]]; then
             c='$3'
@@ -66,8 +66,8 @@ if [[ -n "$ZSH_VERSION" ]]; then
             zle accept-line
           fi
         }"
-        zle -N $func_name 
-        bindkey "$2" $func_name 
+        zle -N $func_name
+        bindkey "$2" $func_name
       fi
     }
 
@@ -77,7 +77,7 @@ elif [[ -n "$BASH" ]]; then
         # pretty similar to zsh flow
         offset=${READLINE_POINT}
         READLINE_POINT=0
-        col=$(echo $(get_cursor_position) | cut -f 2 -d " ")
+        col=$(get_cursor_position | cut -f 2 -d " ")
 
         word=${READLINE_LINE:0:offset}
         word=${word##* }
@@ -92,7 +92,7 @@ elif [[ -n "$BASH" ]]; then
         READLINE_LINE=${READLINE_LINE:0:$((offset-word_length))}${result}${READLINE_LINE:$((offset))}
         offset=$(($offset - $word_length + $result_length))
 
-        row=$(echo $(get_cursor_position) | cut -f 1 -d " ")
+        row=$(get_cursor_position | cut -f 1 -d " ")
         tput cup $row $col
         READLINE_POINT=${offset}
     }
